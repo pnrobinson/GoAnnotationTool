@@ -21,4 +21,13 @@ You will see a list of GO terms with their number of annotated counts and their 
 * P: biological process
 * C: cellular component
 
+```
+(...)
+GO:0050900: 1: P
+GO:0002250: 13: P
+GO:0002377: 20: P
+GO:0050776: 1: P
+GO:0004252: 2: F
+```
+
 For the website essentially we need to pass the function that does this (which now just takes some random genes) the genes that are associated with some HPO term, and then retrieve the top 3 from F, P, and C.
