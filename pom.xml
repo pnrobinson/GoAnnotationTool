@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jax</groupId>
-    <artifactId>goannottool</artifactId>
+    <artifactId>annottool</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
-    <name>GoAnnotationTool</name>
+    <name>AnnotationTool</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -16,6 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jdk.version>1.8</jdk.version>
         <ontolib.version>0.1.1</ontolib.version>
+        <guava.version>22.0</guava.version>
     </properties>
 
     <dependencies>
@@ -83,6 +84,13 @@
             <artifactId>ontolib-io</artifactId>
             <version>${ontolib.version}</version>
         </dependency>
+
+        <!-- Google Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
     </dependencies>
 
     <!-- keeps the logging artifacts in sync with each other -->
@@ -115,7 +123,7 @@
                 </includes>
             </resource>
         </resources>
-        <finalName>dimorph-${project.version}</finalName>
+        <finalName>GoAnnotationTool</finalName>
 
         <plugins>
             <plugin>
@@ -140,7 +148,7 @@
                             <classpathPrefix>lib/</classpathPrefix>
 
                             <useUniqueVersions>false</useUniqueVersions>
-                            <mainClass>org.jax.go.GoAnnotationTool</mainClass>
+                            <mainClass>org.jax.go.AnnotationTool</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
