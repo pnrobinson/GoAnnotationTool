@@ -1,7 +1,10 @@
 package org.jax.go;
 
+import com.github.phenomics.ontolib.ontology.data.Ontology;
 import com.github.phenomics.ontolib.ontology.data.TermId;
 import com.google.common.collect.ImmutableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.List;
  * gastrointestinal can have the subcategory liver
  */
 public class HpoCategory {
+  private static final Logger logger = LogManager.getLogger();
 
   private final TermId tid;
 
@@ -39,6 +43,11 @@ public class HpoCategory {
 
   public String getLabel() {
     return label;
+  }
+
+
+  public void addAnnotatedTerm(TermId tid,Ontology ontology){
+
   }
 
   public static class Builder {

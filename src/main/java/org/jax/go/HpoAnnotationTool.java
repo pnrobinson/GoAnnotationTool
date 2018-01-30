@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HpoAnnotationTool {
     private static final Logger logger = LogManager.getLogger();
@@ -20,18 +21,36 @@ public class HpoAnnotationTool {
 
     List<HpoDiseaseAnnotation> annotations=null;
 
+
+    String hpOboPath="hp.obo";
+    String hpAnnotationPath="/Users/peterrobinson/Documents/data/phenotype_annotation.tab";
+
+
+    public HpoAnnotationTool() {
+        parseOntology(this.hpOboPath);
+        parseAnnotations(this.hpAnnotationPath);
+        List<TermId> randomterms = getRandomTerms(100);
+        calculateCategoryMap(randomterms);
+    }
+
+
+
     public HpoAnnotationTool(String hpoOboPath, String HpoAnnotPath) {
         parseOntology(hpoOboPath);
         parseAnnotations(HpoAnnotPath);
-        List<TermId> randomterms = getRandomTerms(100);
-        calculateCategoryMap(randomterms.get(0),randomterms);
+        List<TermId> randomterms = getRandomTerms(10);
+        calculateCategoryMap(randomterms);
     }
 
 
 
 
-    private void calculateCategoryMap(TermId tid, List<TermId> termlist) {
+    private void calculateCategoryMap(List<TermId> termlist) {
         HpoCategoryMap categorymap = new HpoCategoryMap();
+        for (TermId tid : termlist) {
+            categorymap.addAnnotatedTerm(tid,ontology);
+        }
+
         //HpoCategory category = categorymap.getCategory(tid);
 
 
@@ -42,10 +61,13 @@ public class HpoAnnotationTool {
 
 
     private List<TermId> getRandomTerms(int N) {
-        int i=0;
+        N=Math.min(N,ontology.getTermMap().size());
+        List<TermId > allterms=new ArrayList<>(ontology.getTermMap().keySet());
         List<TermId> lst = new ArrayList<>();
-        for (TermId t : ontology.getTermMap().keySet()) {
-            if (++i>N) break;
+        Random rand=new Random();
+        for (int i=0;i<N;i++) {
+            int r = rand.nextInt(allterms.size());
+            TermId t = allterms.get(r);
             lst.add(t);
         }
         return lst;
@@ -60,6 +82,12 @@ public class HpoAnnotationTool {
             HpoDiseaseAnnotationParser parser = new HpoDiseaseAnnotationParser(inputFile);
             while (parser.hasNext()) {
                 HpoDiseaseAnnotation anno = parser.next();
+                TermId tid = anno.getHpoId();
+                TermId primaryId=ontology.getTermMap().get(tid).getId();
+                if (! tid.equals(primaryId)) {
+                    //create a new HpoDiseaseAnnotation object with correct primary id
+                }
+
                 annotations.add(anno);
             }
         } catch (IOException e) {
