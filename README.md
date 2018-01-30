@@ -14,7 +14,7 @@ Now go back to the cloned repo for GoAnnotationTool. Download the go.obo file an
 ```
 $ gunzip goa_human.gaf.gz
 $ mvn clean package
-$ java -jar target/goatool.jar ../dimorph/data/go.obo goa_human.gaf 
+$ java -jar target/goatool.jar go.obo goa_human.gaf 
 ```
 You will see a list of GO terms with their number of annotated counts and their aspect.
 * F: molecular function
