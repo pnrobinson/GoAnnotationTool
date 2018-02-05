@@ -152,7 +152,7 @@ public class GoAnnotationTool {
         try {
             geneOntology = parser.parse();
         } catch (IOException e) {
-            logger.fatal("Could not ingest GO obo file");
+            logger.fatal(String.format("Could not ingest GO obo file at %s",pathToGoOboFile));
             e.printStackTrace();
             System.exit(1);
         }
